@@ -6,7 +6,7 @@ import com.etz.MPB.portal.dto.response.ResponseConstants;
 import com.etz.MPB.portal.entity.Permissions;
 import com.etz.MPB.portal.entity.Roles;
 import com.etz.MPB.portal.repositories.PermissionRepository;
-import com.etz.MPB.portal.repositories.RoleRespository;
+import com.etz.MPB.portal.repositories.RoleRepository;
 import com.etz.MPB.portal.service.RolePermissionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.etz.MPB.portal.exceptions.Exception;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ import java.util.*;
 public class RolePermissionServiceImpl implements RolePermissionService {
 
     @Autowired
-    RoleRespository roleRespository;
+    RoleRepository roleRepository;
 
     @Autowired
     PermissionRepository permissionRepository;
@@ -36,13 +37,13 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     @Override
     public BaseResponse createRole(CreateRoleReq createRoleReq, HttpServletRequest request) {
         BaseResponse baseResponse = new BaseResponse();
-        if (roleRespository.existsByDescription(createRoleReq.getDescription())) {
-            baseResponse.setResponseCode(ResponseConstants.EXIST_CODE);
+        if (roleRepository.existsByDescription(createRoleReq.getDescription())) {
+            baseResponse.setResponseCode(String.valueOf(ResponseConstants.EXIST_CODE));
             baseResponse.setResponseMessage("Role description already exist");
             return baseResponse;
         }
-        if (roleRespository.existsByName(createRoleReq.getName())) {
-            baseResponse.setResponseCode(ResponseConstants.EXIST_CODE);
+        if (roleRepository.existsByName(createRoleReq.getName())) {
+            baseResponse.setResponseCode(String.valueOf(ResponseConstants.EXIST_CODE));
             baseResponse.setResponseMessage("Role name already exist");
             return baseResponse;
         }
@@ -54,13 +55,13 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         Set<Permissions> permissions = new HashSet<>();
         if (createRoleReq.getPermissions() != null) {
             createRoleReq.getPermissions().forEach(i -> {
-                Optional<Permissions> permission = permissionRepository.findById(i.getId());
+                Optional<Permissions> permission = permissionRepository.findById(i);
                 if (permission.isPresent()) permissions.add(permission.get());
             });
         }
         role.setPermissions(permissions);
-        roleRespository.save(role);
-        baseResponse.setResponseCode(ResponseConstants.SUCCESS_CODE);
+        roleRepository.save(role);
+        baseResponse.setResponseCode(String.valueOf(ResponseConstants.SUCCESS_CODE));
         baseResponse.setResponseMessage("Role has been created successfully.");
         return baseResponse;
     }
@@ -70,39 +71,40 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     public BaseResponse updateRole(Long id, CreateRoleReq createRoleRequest, HttpServletRequest request) {
         try {
             BaseResponse baseResponse = new BaseResponse();
-            Optional<Roles> role = roleRespository.findById(id);
+            Optional<Roles> role = roleRepository.findById(id);
             if (!role.isPresent()) throw new Exception("Role not found");
 
             role.get().setName(createRoleRequest.getName());
             role.get().setDescription(createRoleRequest.getDescription());
+            role.get().setUpdatedOn(LocalDateTime.now());
             Set<Permissions> permissions = new HashSet<>();
             role.get().setPermissions(permissions);
 
             createRoleRequest.getPermissions().forEach(i -> {
-                Optional<Permissions> permOpt = permissionRepository.findById(i.getId());
+                Optional<Permissions> permOpt = permissionRepository.findById(i);
                 if (permOpt.isPresent()) permissions.add(permOpt.get());
             });
             role.get().setPermissions(permissions);
-            roleRespository.save(role.get());
-            baseResponse.setResponseCode(ResponseConstants.SUCCESS_CODE);
+            roleRepository.save(role.get());
+            baseResponse.setResponseCode(String.valueOf(ResponseConstants.SUCCESS_CODE));
             baseResponse.setResponseMessage("Successfully processed");
             return baseResponse;
         } catch (Exception ex) {
             ex.printStackTrace();
             BaseResponse baseResponse = new BaseResponse();
-            baseResponse.setResponseCode(500);
+            baseResponse.setResponseCode(String.valueOf(500));
             baseResponse.setResponseMessage("Update Failed");
             return baseResponse;
         }
     }
 
     @Override
-    public BaseResponse queryRole(Long id, String name, int status, int number, int size, HttpServletRequest request) {
+    public BaseResponse queryRole(Long id, String name, Integer status, int number, int size, HttpServletRequest request) {
         Long startTime = System.currentTimeMillis();
         BaseResponse<Object> response = new BaseResponse<>();
-        HashMap<String, Object> data = new HashMap<>();
+        LinkedHashMap<String, Object> data = new LinkedHashMap<>();
         Pageable paging = PageRequest.of(number - 1,size);
-        Page<Roles> rolesPage = roleRespository.queryRoles(id,name,status,paging);
+        Page<Roles> rolesPage = roleRepository.queryRoles(id,name,status,paging);
         data.put("content", rolesPage.getContent());
         data.put("page", rolesPage.getNumber() + 1);
         data.put("size", rolesPage.getSize());
@@ -112,7 +114,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         data.put("last", rolesPage.isLast());
 
         Long endTime = System.currentTimeMillis();
-        response.setResponseCode(ResponseConstants.SUCCESS_CODE);
+        response.setResponseCode(String.valueOf(ResponseConstants.SUCCESS_CODE));
         response.setResponseMessage("Successfully processed");
         response.setExecTime(endTime - startTime);
         response.setData(data);
@@ -123,7 +125,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
     public BaseResponse queryPermissions( int number, int size, HttpServletRequest request) {
         Long startTime = System.currentTimeMillis();
         BaseResponse<Object> response = new BaseResponse<>();
-        HashMap<String, Object> data = new HashMap<>();
+        LinkedHashMap<String, Object> data = new LinkedHashMap<>();
         Pageable paging = PageRequest.of(number - 1,size);
         Page<Permissions> permissionsPage = permissionRepository.queryPermissions(paging);
         data.put("content", permissionsPage.getContent());
@@ -135,7 +137,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         data.put("last", permissionsPage.isLast());
 
         Long endTime = System.currentTimeMillis();
-        response.setResponseCode(ResponseConstants.SUCCESS_CODE);
+        response.setResponseCode(String.valueOf(ResponseConstants.SUCCESS_CODE));
         response.setResponseMessage("Successfully processed");
         response.setExecTime(endTime - startTime);
         response.setData(data);

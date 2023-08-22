@@ -34,14 +34,6 @@ public class Roles {
     private Long createdBy;
     private LocalDateTime updatedOn;
     private Long updatedBy;
-
-    public Set<Permissions> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<Permissions> permissions) {
-        this.permissions = permissions;
-    }
     public Long getId() {
         return id;
     }
@@ -114,7 +106,13 @@ public class Roles {
         this.updatedBy = updatedBy;
     }
 
+    public Set<Permissions> getPermissions() {
+        return permissions;
+    }
 
+    public void setPermissions(Set<Permissions> permissions) {
+        this.permissions = permissions;
+    }
     
     
 }

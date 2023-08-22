@@ -17,6 +17,6 @@ import java.util.Set;
 public class CreateRoleReq {
     private String name;
     private String description;
-    private Set<Permissions> permissions;
+    private Set<Long> permissions;
 
 }

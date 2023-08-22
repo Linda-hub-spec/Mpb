@@ -14,18 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
-@RequestMapping("/apis/permissions")
+@RequestMapping("/api/permissions")
 public class PermissionController {
 
     @Autowired
     RolePermissionService rolePermissionService;
 
     @GetMapping("/")
-    public ResponseEntity<?> queryPermission(@RequestParam Long id,
-                                       @RequestParam String name,
-                                       @RequestParam int status,
-                                       @RequestParam(required = false, defaultValue = "1") int number,
-                                       @RequestParam(required = false, defaultValue = "10") int size,
+    public ResponseEntity<?> queryPermission( @RequestParam(required = false, defaultValue = "1") int number,
+                                              @RequestParam(required = false, defaultValue = "10") int size,
                                        HttpServletRequest request) throws Exception {
 
         BaseResponse response = rolePermissionService.queryPermissions(number,size,request);

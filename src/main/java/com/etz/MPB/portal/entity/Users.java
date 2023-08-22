@@ -1,6 +1,7 @@
 package com.etz.MPB.portal.entity;
 
 import com.etz.MPB.portal.enums.ConstantStatus;
+import com.etz.MPB.portal.enums.UserStatus;
 import lombok.*;
 
 import org.hibernate.annotations.Fetch;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,10 +33,10 @@ public class Users {
     private String cypher;
     private boolean authorized;
     @Enumerated
-    private ConstantStatus status;
-    private Date createdOn;
+    private UserStatus status;
+    private LocalDateTime createdOn;
     private Long createdBy;
-    private Date updatedOn;
+    private LocalDateTime updatedOn;
     private Long updatedBy;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",

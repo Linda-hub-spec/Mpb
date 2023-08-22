@@ -10,7 +10,7 @@ public interface RolePermissionService {
 
     BaseResponse updateRole(Long id, CreateRoleReq createRoleReq, HttpServletRequest request);
 
-    BaseResponse queryRole(Long id, String name, int status, int number, int size, HttpServletRequest request);
+    BaseResponse queryRole(Long id, String name, Integer status, int number, int size, HttpServletRequest request);
 
     BaseResponse queryPermissions( int number, int size, HttpServletRequest request);
 }

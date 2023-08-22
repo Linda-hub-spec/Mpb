@@ -2,6 +2,8 @@ package com.etz.MPB.portal.config;
 
 import com.etz.MPB.portal.entity.Users;
 import com.etz.MPB.portal.enums.ConstantStatus;
+import com.etz.MPB.portal.enums.ResponseEnum;
+import com.etz.MPB.portal.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,7 +60,7 @@ public class CustomUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        if(users.getStatus() == ConstantStatus.ENABLED){
+        if(users.getStatus() == UserStatus.ENABLED){
             return true;
         }
         return false;

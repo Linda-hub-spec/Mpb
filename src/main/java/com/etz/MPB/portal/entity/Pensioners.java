@@ -16,7 +16,7 @@ public class Pensioners {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String service_no;
+    private String serviceNo;
     private String rank;
     private String lastName;
     private String firstName;
