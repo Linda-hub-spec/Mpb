@@ -6,9 +6,9 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 public class BaseResponse<T> {
-    private int responseCode;
+    private String responseCode;
     private String responseMessage;
+    private Long timestamp;
     private long execTime;
-    private String error;
     private T data = null;
 }

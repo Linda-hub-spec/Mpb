@@ -3,6 +3,7 @@ package com.etz.MPB.portal.controller;
 import com.etz.MPB.portal.dto.request.CreateRoleReq;
 import com.etz.MPB.portal.dto.response.BaseResponse;
 import com.etz.MPB.portal.service.RolePermissionService;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
-@RequestMapping("/apis/roles")
+@RequestMapping("/api/roles")
 public class RoleController {
 
     @Autowired
@@ -31,9 +32,9 @@ public class RoleController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> queryRole(@RequestParam Long id,
-                                       @RequestParam String name,
-                                       @RequestParam int status,
+    public ResponseEntity<?> queryRole(@RequestParam(required = false) Long id,
+                                       @RequestParam (required = false) String name,
+                                       @RequestParam(required = false) Integer status,
                                        @RequestParam(required = false, defaultValue = "1") int number,
                                        @RequestParam(required = false, defaultValue = "10") int size,
                                        HttpServletRequest request) throws Exception {

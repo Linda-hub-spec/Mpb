@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @JaversSpringDataAuditable
-public interface RoleRespository extends JpaRepository<Roles, Long> {
+public interface RoleRepository extends JpaRepository<Roles, Long> {
     boolean existsByName(String name);
 
     boolean existsByDescription(String name);
@@ -22,5 +22,5 @@ public interface RoleRespository extends JpaRepository<Roles, Long> {
     @Query(
             value = "SELECT t FROM Roles t WHERE (t.id =:id OR :id IS NULL) AND (t.name LIKE %:name% OR :name IS NULL) AND (t.status =:status OR :status IS NULL)"
     )
-    Page<Roles> queryRoles(Long id, String name, int status, Pageable paging);
+    Page<Roles> queryRoles(Long id, String name, Integer status, Pageable paging);
 }

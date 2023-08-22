@@ -32,9 +32,13 @@ spring:
             max-request-size: 128MB
 app:
     security:
-        client-id: TMS_PORTAL_CLIENT
+        client-id: MPB_PORTAL_CLIENT
         client-secret: password1234
-        resource-id: TMS_PORTAL_RESOURCE
+        resource-id: MPB_PORTAL_RESOURCE
         validity:
             access-token: 120
             refresh-token: 24000
+
+
+server:
+    port: 20003
