@@ -3,6 +3,7 @@ package com.etz.MPB.portal.entity;
 import com.etz.MPB.portal.enums.ConstantStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -29,9 +30,9 @@ public class Roles {
     private boolean authorized;
     @Enumerated
     private ConstantStatus status;
-    private Date createdOn;
+    private LocalDateTime createdOn;
     private Long createdBy;
-    private Date updatedOn;
+    private LocalDateTime updatedOn;
     private Long updatedBy;
 
     public Set<Permissions> getPermissions() {
@@ -81,11 +82,11 @@ public class Roles {
         this.status = status;
     }
 
-    public Date getCreatedOn() {
+    public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(Date createdOn) {
+    public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
     }
 
@@ -97,11 +98,11 @@ public class Roles {
         this.createdBy = createdBy;
     }
 
-    public Date getUpdatedOn() {
+    public LocalDateTime getUpdatedOn() {
         return updatedOn;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
+    public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
     }
 
