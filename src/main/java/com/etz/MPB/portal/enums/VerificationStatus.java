@@ -1,0 +1,6 @@
+package com.etz.MPB.portal.enums;
+
+public enum VerificationStatus {
+    VERIFICATION_NOT_COMPLETED,VERIFICATION_COMPLETED,VERIFICATION_REJECTED,VERIFICATION_SUCCESSFUL
+
+}
