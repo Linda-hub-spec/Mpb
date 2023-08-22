@@ -44,7 +44,7 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
 //    @Autowired
 //    private CustomeAccessTokenConverter customeAccessTokenConverter;
 
-    @Value("${app.security.client-id}")
+  /*  @Value("${app.security.client-id}")
     private String clientId;
     @Value("${app.security.client-secret}")
     private String secret;
@@ -53,7 +53,7 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
     @Value("${app.security.validity.access-token}")
     private int accessTokenValidity;
     @Value("${app.security.validity.refresh-token}")
-    private int refreshTokenValidity;
+    private int refreshTokenValidity;*/
 
     private final String privateKey = "-----BEGIN RSA PRIVATE KEY-----\n" +
             "MIIEpAIBAAKCAQEA1226PnAaDUCg4vFIWUEtTQWedjolHPaVStGjeUBXBdO/fVaV\n" +

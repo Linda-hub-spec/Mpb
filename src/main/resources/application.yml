@@ -9,7 +9,7 @@ logging:
 spring:
     application: 'null'
     datasource:
-        url: jdbc:mysql://172.17.10.16:3306/tms_db2?createDatabaseIfNotExist=true&autoReconnect=true&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
+        url: jdbc:mysql://172.17.10.16:3306/mpb_db?createDatabaseIfNotExist=true&autoReconnect=true&serverTimezone=UTC&zeroDateTimeBehavior=convertToNull
         password: A123456@qwER1#
         username: samuel.sawyerr
     http:
@@ -32,9 +32,13 @@ spring:
             max-request-size: 128MB
 app:
     security:
-        client-id: TMS_PORTAL_CLIENT
+        client-id: MPB_PORTAL_CLIENT
         client-secret: password1234
-        resource-id: TMS_PORTAL_RESOURCE
+        resource-id: MPB_PORTAL_RESOURCE
         validity:
             access-token: 120
             refresh-token: 24000
+
+
+server:
+    port: 20003
