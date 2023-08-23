@@ -1,10 +1,14 @@
 package com.etz.MPB.portal.entity;
 
 import com.etz.MPB.portal.enums.ConstantStatus;
+import com.etz.MPB.portal.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -113,6 +117,28 @@ public class Roles {
     public void setPermissions(Set<Permissions> permissions) {
         this.permissions = permissions;
     }
-    
+
+
+//    @PrePersist
+//    private void setCreatedDate() {
+//        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+//            Optional<Users> user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+//            this.createdBy = user.get().getId();
+//        }else {
+//            this.createdBy = 0L;
+//        }
+//        this.createdOn = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    private void updatedAt() {
+//        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+//            Optional<Users> user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+//            this.updatedBy = user.get().getId();
+//        }else {
+//            this.updatedBy = 0L;
+//        }
+//        this.updatedOn = LocalDateTime.now();
+//    }
     
 }

@@ -5,14 +5,17 @@ import com.etz.MPB.portal.dto.response.BaseResponse;
 import com.etz.MPB.portal.dto.response.ResponseConstants;
 import com.etz.MPB.portal.entity.Permissions;
 import com.etz.MPB.portal.entity.Roles;
+import com.etz.MPB.portal.entity.Users;
 import com.etz.MPB.portal.repositories.PermissionRepository;
 import com.etz.MPB.portal.repositories.RoleRepository;
+import com.etz.MPB.portal.repositories.UserRepository;
 import com.etz.MPB.portal.service.RolePermissionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.etz.MPB.portal.exceptions.Exception;
@@ -26,6 +29,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     PermissionRepository permissionRepository;
@@ -51,7 +57,9 @@ public class RolePermissionServiceImpl implements RolePermissionService {
         role.setName(createRoleReq.getName());
         role.setDescription(createRoleReq.getDescription());
         role.setCreatedOn(LocalDateTime.now());
-        role.setCreatedBy(0L);
+        Optional<Users> user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        role.setCreatedBy(user.get().getId());
+
         Set<Permissions> permissions = new HashSet<>();
         if (createRoleReq.getPermissions() != null) {
             createRoleReq.getPermissions().forEach(i -> {
@@ -77,6 +85,8 @@ public class RolePermissionServiceImpl implements RolePermissionService {
             role.get().setName(createRoleRequest.getName());
             role.get().setDescription(createRoleRequest.getDescription());
             role.get().setUpdatedOn(LocalDateTime.now());
+            Optional<Users> user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            role.get().setUpdatedBy(user.get().getId());
             Set<Permissions> permissions = new HashSet<>();
             role.get().setPermissions(permissions);
 
