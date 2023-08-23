@@ -20,5 +20,5 @@ public interface BankRepository extends JpaRepository<Banks, Long> {
                     "(r.name = :name OR (:name IS NULL)) AND "  +
                     "(r.code = :code OR (:code IS NULL))"
     )
-    Page<Ranks> findBanks(Long id, String name, String code, Pageable paging);
+    Page<Banks> findBanks(Long id, String name, String code, Pageable paging);
 }

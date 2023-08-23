@@ -21,10 +21,10 @@ public interface PensionerRepository extends JpaRepository<Pensioners, Long> {
                     "(p.authorized = :authorized OR (:authorized IS NULL)) AND "  +
                     "(p.createdOn >= :createdDateFrom OR (:createdDateFrom IS NULL)) AND "+
             "(p.createdOn <= :createdDateTo OR (:createdDateTo IS NULL)) AND "+
-                    "('%:name%' IS NULL OR (CONCAT(p.lastName,' ',p.firstName,' ',p.otherName) LIKE '%:name%')) AND "+
-                    "('%:email%' IS NULL OR (p.email LIKE '%:email%')) AND "+
-                    "('%:phone%' IS NULL OR (p.phone LIKE '%:phone%')) AND "+
-                    "('%:status%' IS NULL OR (p.status LIKE '%:status%')) "
+                    "((CONCAT(p.lastName,' ',p.firstName,' ',p.otherName) LIKE %:name%)  OR :name IS NULL) AND "+
+                    "(:email IS NULL OR (p.email LIKE %:email%)) AND "+
+                    "(:phone IS NULL OR (p.phone LIKE %:phone%)) AND "+
+                    "(:status IS NULL OR (p.status =:status )) "
     )
     Page<Pensioners> findPensioner(Boolean authorized, Date createdDateFrom, Date createdDateTo, String name, String email,
                                    String phone, PensionerStatus status, Long id, Pageable paging);

@@ -17,7 +17,7 @@ public class Pensioners {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String serviceNo;
-    private String rank;
+    private String rankId;
     private String lastName;
     private String firstName;
     private String otherName;
@@ -26,15 +26,22 @@ public class Pensioners {
     private String bankCode;
     private String accountNo;
     private String bvn;
-    @Enumerated
+
+    @Column(name = "verification_stage")
+    @Enumerated(EnumType.ORDINAL)
     private VerificationStage verificationStage;
-    @Enumerated
+
+    @Column(name = "verification_option")
+    @Enumerated(EnumType.ORDINAL)
     private VerificationOption verificationOption;
-    @Enumerated
+
+    @Column(name = "verification_status")
+    @Enumerated(EnumType.ORDINAL)
     private VerificationStatus verificationStatus;
+
     private String verificationReference;
     private boolean authorized;
-    @Enumerated
+    @Enumerated(EnumType.ORDINAL)
     private PensionerStatus status;
     private Date createdOn;
     private Long createdBy;

@@ -37,7 +37,7 @@ public class RankController {
     @GetMapping("/")
     public ResponseEntity<BaseResponse> queryBank(@RequestParam(required = false) String name,
                                                   @RequestParam(required = false) String code,
-                                                  @RequestParam() Long id,
+                                                  @RequestParam(required = false) Long id,
                                                   @RequestParam(required = false, defaultValue = "1") int number,
                                                   @RequestParam(required = false, defaultValue = "30") int size) {
         Pageable paging = PageRequest.of(number - 1,size);
