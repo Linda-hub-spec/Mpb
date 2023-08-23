@@ -20,7 +20,7 @@ public class PermissionController {
     @Autowired
     RolePermissionService rolePermissionService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> queryPermission( @RequestParam(required = false, defaultValue = "1") int number,
                                               @RequestParam(required = false, defaultValue = "10") int size,
                                        HttpServletRequest request) throws Exception {

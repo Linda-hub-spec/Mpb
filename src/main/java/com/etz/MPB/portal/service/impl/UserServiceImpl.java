@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,7 +55,8 @@ public class UserServiceImpl implements UserService {
 
             Users user = mapper.map(userReq, Users.class);
             user.setCypher("{bcrypt}" + bCryptPasswordEncoder.encode(userReq.getPassword()));
-            user.setCreatedBy(0L);
+            Optional<Users> userr = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            user.setCreatedBy(userr.get().getId());
             user.setCreatedOn(LocalDateTime.now());
             user.setStatus(UserStatus.ENABLED);
             user.setAuthorized(true);
@@ -90,7 +92,8 @@ public class UserServiceImpl implements UserService {
             user.setFirstName(userReq.getFirstName());
             user.setFirstName(userReq.getFirstName());
             user.setPhone(userReq.getPhone());
-            user.setUpdatedBy(0L);
+            Optional<Users> userr = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            user.setUpdatedBy(userr.get().getId());
             user.setUpdatedOn(LocalDateTime.now());
             user.setStatus(userReq.getStatus());
             user.setAuthorized(true);

@@ -39,13 +39,13 @@ public class CustomeAccessTokenConverter extends JwtAccessTokenConverter {
         }
 
 
-        Set<CustomPermission> authorities = new HashSet<>();
+        Set<String> authorities = new HashSet<String>();
         optUser.get().getRoles().stream().forEach(r -> {
             r.getPermissions().forEach(permissions -> {
-                CustomPermission customPermission = new CustomPermission();
-                customPermission.setId(permissions.getId());
-                customPermission.setName(permissions.getName());
-                authorities.add(customPermission);});
+//                CustomPermission customPermission = new CustomPermission();
+//                customPermission.setId(permissions.getId());
+//                customPermission.setName(permissions.getName());
+                authorities.add(permissions.getName());});
         });
 
        Map<String, Object> info = new LinkedHashMap<>(accessToken.getAdditionalInformation());
