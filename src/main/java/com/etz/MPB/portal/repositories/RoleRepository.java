@@ -2,7 +2,7 @@ package com.etz.MPB.portal.repositories;
 
 import com.etz.MPB.portal.entity.Roles;
 
-import org.javers.spring.annotation.JaversSpringDataAuditable;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@JaversSpringDataAuditable
+
 public interface RoleRepository extends JpaRepository<Roles, Long> {
     boolean existsByName(String name);
 

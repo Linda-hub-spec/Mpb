@@ -3,7 +3,7 @@ package com.etz.MPB.portal.repositories;
 import com.etz.MPB.portal.entity.Pensioners;
 import com.etz.MPB.portal.entity.Ranks;
 import com.etz.MPB.portal.enums.PensionerStatus;
-import org.javers.spring.annotation.JaversSpringDataAuditable;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 @Repository
-@JaversSpringDataAuditable
+
 public interface PensionerRepository extends JpaRepository<Pensioners, Long> {
     @Query(
             value = "SELECT p FROM Pensioners p WHERE " +
