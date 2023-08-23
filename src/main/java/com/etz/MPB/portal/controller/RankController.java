@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/apis/mpb/portal")
+@RequestMapping("/api/ranks")
 public class RankController {
 
     @Autowired
     RankService rankService;
 
-    @PostMapping("/ranks")
+    @PostMapping("/")
     public ResponseEntity<BaseResponse> createBank(@RequestBody CreateRankRequest createRankRequest) {
         BaseResponse response = rankService.createRanks(createRankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/ranks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> updateBank(@PathVariable long id,@RequestBody CreateRankRequest createRankRequest) {
         BaseResponse response = rankService.updateRanks(id,createRankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/ranks")
+    @GetMapping("/")
     public ResponseEntity<BaseResponse> queryBank(@RequestParam(required = false) String name,
                                                   @RequestParam(required = false) String code,
                                                   @RequestParam() Long id,

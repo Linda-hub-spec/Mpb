@@ -9,6 +9,6 @@ import java.util.Date;
 
 @Repository
 public interface PensionerDocumentRepository extends JpaRepository<PensionerDocuments,Long> {
-    @Query(value = "select p.url from PensionerDocuments where p.pensionerId = :pensionerId and (p.createdOn between :startDate and :endDate) and p.documentType = 3 ")
+    @Query(value = "select p.url from PensionerDocuments p where p.pensionerId = :pensionerId and (p.createdOn between :startDate and :endDate) and p.documentType = 3 ")
     String findUrl(Date startDate, Date endDate,Long pensionerId);
 }

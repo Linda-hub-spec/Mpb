@@ -17,25 +17,25 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/mpb/portal")
+@RequestMapping("/api/pensioners")
 public class PensionerController {
 
     @Autowired
     PensionerService pensionerService;
 
-    @PostMapping("/pensioners")
+    @PostMapping("/")
     public ResponseEntity<BaseResponse> createPensioner(@RequestBody List<CreatePensionRequest> createPensionRequest, HttpServletRequest request) {
         BaseResponse response = pensionerService.createPensioner(createPensionRequest,request);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/pensioners/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> updatePensioner(@PathVariable long id, @RequestBody UpdatePensionerRequest updatePensionRequest, HttpServletRequest request) {
         BaseResponse response = pensionerService.updatePensioner(id,updatePensionRequest,request);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/pensioners")
+    @GetMapping("/")
     public ResponseEntity<BaseResponse> queryPensioner(@RequestParam(required = false) Boolean authorised,
                                                        @DateTimeFormat(pattern = "dd-MM-yyyy") @RequestParam(required = false) Date createdDateFrom,
                                                        @DateTimeFormat(pattern = "dd-MM-yyyy") @RequestParam(required = false) Date createdDateTo,

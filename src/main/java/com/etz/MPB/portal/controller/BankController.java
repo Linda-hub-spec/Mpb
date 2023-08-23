@@ -15,24 +15,24 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/api/mpb/portal")
+@RequestMapping("/api/banks")
 public class BankController {
     @Autowired
     BankService bankService;
 
-    @PostMapping("/banks")
+    @PostMapping("/")
     public ResponseEntity<BaseResponse> createBank(@RequestBody CreateBankRequest createBankRequest) {
         BaseResponse response = bankService.createBanks(createBankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/banks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> updateBank(@PathVariable long id,@RequestBody CreateBankRequest createBankRequest) {
         BaseResponse response = bankService.updateBanks(id,createBankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/banks")
+    @GetMapping("/")
     public ResponseEntity<BaseResponse> queryBank(@RequestParam(required = false) String name,
                                                   @RequestParam(required = false) String code,
                                                   @RequestParam() Long id,
