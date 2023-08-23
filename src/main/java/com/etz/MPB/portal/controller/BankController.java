@@ -11,33 +11,34 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/apis/mpb/portal")
+@RequestMapping("/api/banks")
 public class BankController {
     @Autowired
     BankService bankService;
 
-    @PostMapping("/banks")
+    @PostMapping("/")
     public ResponseEntity<BaseResponse> createBank(@RequestBody CreateBankRequest createBankRequest) {
         BaseResponse response = bankService.createBanks(createBankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/banks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> updateBank(@PathVariable long id,@RequestBody CreateBankRequest createBankRequest) {
         BaseResponse response = bankService.updateBanks(id,createBankRequest);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/banks")
+    @GetMapping("/")
     public ResponseEntity<BaseResponse> queryBank(@RequestParam(required = false) String name,
                                                   @RequestParam(required = false) String code,
                                                   @RequestParam() Long id,
-                                                  @RequestParam(required = false, defaultValue = "0") int number,
+                                                  @RequestParam(required = false, defaultValue = "1") int number,
                                                   @RequestParam(required = false, defaultValue = "30") int size) {
-        Pageable paging = PageRequest.of(number ,size);
+        Pageable paging = PageRequest.of(number - 1 ,size);
         BaseResponse response = bankService.getBanks(name,code,id,paging);
         return ResponseEntity.ok(response);
     }

@@ -55,6 +55,7 @@ public class CustomeAccessTokenConverter extends JwtAccessTokenConverter {
         info.put("email",optUser.get().getEmail());
         info.put("mobile",optUser.get().getPhone());
         info.put("lastname",optUser.get().getLastName());
+        info.put("username",optUser.get().getUsername());
 
 
 //        Optional<com.etz.MPB.portal.entity.PropertyConfig> sessionTimeout = propertyConfigRepository.findById((long) PropertyConfig.SESSION_TIME_OUT.ordinal());
